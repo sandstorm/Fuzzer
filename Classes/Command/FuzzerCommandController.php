@@ -201,8 +201,8 @@ class FuzzerCommandController extends \TYPO3\FLOW3\MVC\Controller\CommandControl
 		$this->outputLine('<em>Undetected Mutations</em>');
 		$this->outputLine('<em>--------------------</em>');
 
-		foreach ($this->undetectedMutations as $i => $mutation) {
-			$this->outputLine('<b>%s</b>', array($i+1, $mutation->getRelativePathAndFileName()));
+		foreach ($this->undetectedMutations as $mutation) {
+			$this->outputLine('<b>%s</b>', array($mutation->getRelativePathAndFileName()));
 			$this->outputLine('  Package: %s', array($mutation->getPackageKey()));
 			$this->outputLine('  Mutation: %s', array($mutation->getDescriptionOfModification()));
 			$this->outputLine('  <u>Diff follows below</u>');
