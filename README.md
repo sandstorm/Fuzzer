@@ -163,6 +163,7 @@ PHPUnit. The characters mean the following:
 - `.` the unit tests could be ran, and they failed correctly
 - `T` the unit tests ran into a timeout (which is also expected behavior)
 - `E` the unit tests ran through SUCCESSFULLY; meaning a mutation was not detected.
+  **These are the cases we are looking for.**
 
 Timeouts
 --------
