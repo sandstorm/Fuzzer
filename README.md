@@ -100,7 +100,7 @@ Usage
 -----
 
 First, make sure you have a reasonably **high code coverage**, as the fuzzer
-will only work on code which is covered by Unit Tests (to reduce the nmber of false
+will only work on code which is covered by Unit Tests (to reduce the number of false
 positives).
 
 ```
