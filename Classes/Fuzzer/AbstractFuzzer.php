@@ -18,10 +18,13 @@ abstract class AbstractFuzzer {
 	 */
 	protected $package;
 
+	protected $testPath;
+
 	protected $name = '';
 
-	public function __construct(\TYPO3\FLOW3\Package\PackageInterface $package) {
+	public function __construct(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath) {
 		$this->package = $package;
+		$this->testPath = $testPath;
 	}
 
 	public function getName() {

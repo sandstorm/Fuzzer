@@ -33,7 +33,7 @@ class SingleLineFuzzer extends AbstractFuzzer {
 		$initialCodeCoveragePathAndFilename = tempnam('/some/non/existing/path', 'fuzzer_clover');
 		$output = array();
 		$returnValue = NULL;
-		exec(sprintf('phpunit -c Build/Common/PhpUnit/UnitTests.xml --coverage-clover %s %sTests/Unit/', $initialCodeCoveragePathAndFilename, $this->package->getPackagePath()), $output, $returnValue);
+		exec(sprintf('phpunit -c Build/Common/PhpUnit/UnitTests.xml --coverage-clover %s %s%s', $initialCodeCoveragePathAndFilename, $this->package->getPackagePath(), $this->testPath), $output, $returnValue);
 
 		if ($returnValue !== 0) {
 			throw new \Exception('Initial clover code coverage could not be determined. are you sure your code runs through? The phpunit response was:' . chr(10) . chr(10) . implode('\n', $output));

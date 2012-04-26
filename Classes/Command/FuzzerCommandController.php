@@ -49,18 +49,20 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 	 * screen.
 	 *
 	 * @param string $packageKey The package key
+	 * @param string $classFileRegex
+	 * @param string $testRegex
 	 * @return void
 	 */
-	public function fuzzCommand($packageKey) {
+	public function fuzzCommand($packageKey, $classFileRegex = NULL, $testPath = NULL) {
 		$startTime = time();
 
 		$package = $this->packageManager->getPackage($packageKey);
 		$packagePath = $package->getPackagePath();
 
 		$this->checkPrerequisites($packagePath);
-		$this->determineUnitTestTimeout($package);
+		$this->determineUnitTestTimeout($package, $testPath);
 
-		$fuzzers = $this->loadAndInitializeFuzzers($package);
+		$fuzzers = $this->loadAndInitializeFuzzers($package, $testPath);
 
 		$this->resetStatistics();
 
@@ -69,12 +71,15 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 
 		foreach ($package->getClassFiles() as $relativeClassPathAndFilename) {
 			$absoluteClassPathAndFilename = $packagePath . $relativeClassPathAndFilename;
+			if ($relativeClassPathAndFilename !== NULL && !preg_match('#'. $classFileRegex . '#', $relativeClassPathAndFilename)) {
+				continue;
+			}
 			foreach ($fuzzers as $fuzzer) {
 				$fuzzer->initializeMutationsForClassFile($absoluteClassPathAndFilename);
 				while ($classFileContents = $fuzzer->nextMutation()) {
 					file_put_contents($absoluteClassPathAndFilename, $classFileContents);
 
-					$this->runTestsForPackage($package, $relativeClassPathAndFilename);
+					$this->runTestsForPackage($package, $relativeClassPathAndFilename, $testPath);
 				}
 				// Reset fuzzed file
 				exec(sprintf('cd %s; git checkout -- %s', $packagePath, $relativeClassPathAndFilename));
@@ -99,11 +104,11 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 		}
 	}
 
-	protected function determineUnitTestTimeout(\TYPO3\FLOW3\Package\PackageInterface $package) {
+	protected function determineUnitTestTimeout(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath) {
 		$this->unitTestTimeout = 10000;
 
 		$startTime = time();
-		$this->runPhpUnitForPackage($package);
+		$this->runPhpUnitForPackage($package, $testPath);
 		$testDuration = time() - $startTime;
 
 		if ($testDuration === 0) {
@@ -116,15 +121,15 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 		$this->flush();
 	}
 
-	protected function loadAndInitializeFuzzers(\TYPO3\FLOW3\Package\PackageInterface $package) {
+	protected function loadAndInitializeFuzzers(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath = 'Tests/Unit') {
 		$fuzzers = array();
 		foreach ($this->settings['fuzzers'] as $fuzzerClassName) {
-			$fuzzers[] = new $fuzzerClassName($package);
+			$fuzzers[] = new $fuzzerClassName($package, $testPath);
 		}
 		return $fuzzers;
 	}
 
-	protected function runTestsForPackage(\TYPO3\FLOW3\Package\PackageInterface $package, $relativeClassPathAndFilename) {
+	protected function runTestsForPackage(\TYPO3\FLOW3\Package\PackageInterface $package, $relativeClassPathAndFilename, $testPath) {
 		$this->numberOfTotalMutations++;
 
 		$output = array();
@@ -137,7 +142,7 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 			return;
 		}
 
-		$returnValue = $this->runPhpUnitForPackage($package);
+		$returnValue = $this->runPhpUnitForPackage($package, $testPath);
 
 		if ($returnValue === 0) {
 				// PHPUnit did NOT report an error, i.e. all tests ran through. That's a severe problem, as we modified the
@@ -180,11 +185,11 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 	 * @param \TYPO3\FLOW3\Package\PackageInterface $package
 	 * @return null
 	 */
-	protected function runPhpUnitForPackage(\TYPO3\FLOW3\Package\PackageInterface $package) {
+	protected function runPhpUnitForPackage(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath = 'Tests/Unit/') {
 		$output = array();
 		$returnValue = NULL;
 
-		exec(sprintf('timeout %s phpunit -c Build/Common/PhpUnit/UnitTests.xml %sTests/Unit/ 2>/dev/null', $this->unitTestTimeout, $package->getPackagePath()), $output, $returnValue);
+		exec(sprintf('timeout %s phpunit -c Build/Common/PhpUnit/UnitTests.xml %s%s 2>/dev/null', $this->unitTestTimeout, $package->getPackagePath(), $testPath), $output, $returnValue);
 		return $returnValue;
 	}
 
