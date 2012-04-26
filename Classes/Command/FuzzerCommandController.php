@@ -13,7 +13,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class FuzzerCommandController extends \TYPO3\FLOW3\MVC\Controller\CommandController {
+class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 
 	/**
 	 * @FLOW3\Inject
