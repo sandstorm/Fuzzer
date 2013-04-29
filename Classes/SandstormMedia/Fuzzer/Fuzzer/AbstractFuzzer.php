@@ -6,7 +6,7 @@ namespace SandstormMedia\Fuzzer\Fuzzer;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * asdf
@@ -14,7 +14,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 abstract class AbstractFuzzer {
 
 	/**
-	 * @var \TYPO3\FLOW3\Package\PackageInterface
+	 * @var \TYPO3\Flow\Package\PackageInterface
 	 */
 	protected $package;
 
@@ -22,7 +22,7 @@ abstract class AbstractFuzzer {
 
 	protected $name = '';
 
-	public function __construct(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath) {
+	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $testPath) {
 		$this->package = $package;
 		$this->testPath = $testPath;
 	}

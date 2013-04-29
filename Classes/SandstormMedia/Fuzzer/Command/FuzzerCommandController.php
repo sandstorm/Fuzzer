@@ -6,18 +6,18 @@ namespace SandstormMedia\Fuzzer\Command;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Fuzzer command controller for the SandstormMedia.Fuzzer package
  *
- * @FLOW3\Scope("singleton")
+ * @Flow\Scope("singleton")
  */
-class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
+class FuzzerCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
 	 */
 	protected $packageManager;
 
@@ -104,7 +104,7 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 		}
 	}
 
-	protected function determineUnitTestTimeout(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath) {
+	protected function determineUnitTestTimeout(\TYPO3\Flow\Package\PackageInterface $package, $testPath) {
 		$this->unitTestTimeout = 10000;
 
 		$startTime = time();
@@ -121,7 +121,7 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 		$this->flush();
 	}
 
-	protected function loadAndInitializeFuzzers(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath = 'Tests/Unit') {
+	protected function loadAndInitializeFuzzers(\TYPO3\Flow\Package\PackageInterface $package, $testPath = 'Tests/Unit') {
 		$fuzzers = array();
 		foreach ($this->settings['fuzzers'] as $fuzzerClassName) {
 			$fuzzers[] = new $fuzzerClassName($package, $testPath);
@@ -129,7 +129,7 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 		return $fuzzers;
 	}
 
-	protected function runTestsForPackage(\TYPO3\FLOW3\Package\PackageInterface $package, $relativeClassPathAndFilename, $testPath) {
+	protected function runTestsForPackage(\TYPO3\Flow\Package\PackageInterface $package, $relativeClassPathAndFilename, $testPath) {
 		$this->numberOfTotalMutations++;
 
 		$output = array();
@@ -182,10 +182,10 @@ class FuzzerCommandController extends \TYPO3\FLOW3\Cli\CommandController {
 	 * - 137 ON TIMEOUT
 	 *
 	 *
-	 * @param \TYPO3\FLOW3\Package\PackageInterface $package
+	 * @param \TYPO3\Flow\Package\PackageInterface $package
 	 * @return null
 	 */
-	protected function runPhpUnitForPackage(\TYPO3\FLOW3\Package\PackageInterface $package, $testPath = 'Tests/Unit/') {
+	protected function runPhpUnitForPackage(\TYPO3\Flow\Package\PackageInterface $package, $testPath = 'Tests/Unit/') {
 		$output = array();
 		$returnValue = NULL;
 
