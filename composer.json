@@ -1,5 +1,5 @@
 {
-    "name": "sandstormmedia/fuzzer",
+    "name": "sndstorm/fuzzer",
     "type": "typo3-flow-package",
     "description": "",
     "version": "",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-0": {
-            "SandstormMedia\\Fuzzer": "Classes"
+            "Sandstorm\\Fuzzer": "Classes"
         }
     }
 }

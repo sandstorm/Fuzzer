@@ -83,9 +83,9 @@ probably not run on Windows.**
 
 ```
 cd <YourFlow3Root>/Packages/Application
-git clone --recursive git://github.com/sandstorm/SandstormMedia.Fuzzer.git
+git clone --recursive git://github.com/sandstorm/Sandstorm.Fuzzer.git
 cd ../../
-./flow3 package:activate SandstormMedia.Fuzzer
+./flow3 package:activate Sandstorm.Fuzzer
 ```
 
 You additionally need the following command-line tools installed:

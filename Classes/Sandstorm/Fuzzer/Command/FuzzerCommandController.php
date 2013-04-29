@@ -1,15 +1,15 @@
 <?php
-namespace SandstormMedia\Fuzzer\Command;
+namespace Sandstorm\Fuzzer\Command;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "SandstormMedia.Fuzzer".      *
+ * This script belongs to the FLOW3 package "Sandstorm.Fuzzer".      *
  *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
 
 /**
- * Fuzzer command controller for the SandstormMedia.Fuzzer package
+ * Fuzzer command controller for the Sandstorm.Fuzzer package
  *
  * @Flow\Scope("singleton")
  */
@@ -147,7 +147,7 @@ class FuzzerCommandController extends \TYPO3\Flow\Cli\CommandController {
 		if ($returnValue === 0) {
 				// PHPUnit did NOT report an error, i.e. all tests ran through. That's a severe problem, as we modified the
 				// source code and our unit tests did not find that... we're after such stuff modifications :)
-			$mutation = new \SandstormMedia\Fuzzer\Mutation();
+			$mutation = new \Sandstorm\Fuzzer\Mutation();
 			$mutation->setPackageKey($package->getPackageKey());
 			$mutation->setRelativePathAndFileName($relativeClassPathAndFilename);
 			$mutation->setDescriptionOfModification('TODO: Describe modification');

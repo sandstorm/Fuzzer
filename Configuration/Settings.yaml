@@ -1,4 +1,4 @@
-SandstormMedia:
+Sandstorm:
   Fuzzer:
     fuzzers:
-      0: SandstormMedia\Fuzzer\Fuzzer\SingleLineFuzzer
+      0: Sandstorm\Fuzzer\Fuzzer\SingleLineFuzzer

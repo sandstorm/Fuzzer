@@ -1,8 +1,8 @@
 <?php
-namespace SandstormMedia\Fuzzer;
+namespace Sandstorm\Fuzzer;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "SandstormMedia.Fuzzer".      *
+ * This script belongs to the FLOW3 package "Sandstorm.Fuzzer".      *
  *                                                                        *
  *                                                                        */
 
