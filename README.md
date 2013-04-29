@@ -5,6 +5,30 @@ Fuzzer -- Validating Unit Test Coverage
 
 (c) Sebastian Kurfürst, Sandstorm Media UG (haftungsbeschränkt)
 
+Code Coverage Helpers
+---------------------
+
+Besides fuzzing, this package implements several helpers to work with functional tests:
+
+	# run unit and functional tests, both creating code coverages
+	bin/phpunit -c Build/BuildEssentials/UnitTests.xml --coverage-php Build/Reports/RawUnitTestCoverage.php
+	bin/phpunit -c Build/BuildEssentials/FunctionalTests.xml --coverage-php Build/Reports/RawFunctionalTestCoverage.php
+
+	# post-process the functional test coverage (conversion from cache directories to packages)
+	./flow codecoverage:convert Build/Reports/RawFunctionalTestCoverage.php Build/Reports/FunctionalTestCoverage.php --packages Your.Package,Your.OtherPackage
+
+	# Merge the reports for unit and functional test coverage
+	./flow codecoverage:merge Build/Reports/RawUnitTestCoverage.php Build/Reports/FunctionalTestCoverage.php Build/Reports/TestCoverage.php
+
+	# render the final report as HTML:
+	./flow codecoverage:render Build/Reports/TestCoverage.php Build/Reports/TestCoverage
+
+	# OR: render the final report as clover file
+	./flow codecoverage:render Build/Reports/TestCoverage.php Build/Reports/TestCoverage.xml --format clover
+
+Fuzzing
+-------
+
 Do you use automated unit tests to check your software?
 Are you monitoring the Code Coverage of your Unit Tests?
 Yeah -- then this software is for you! It helps to find missing edge cases in tests.

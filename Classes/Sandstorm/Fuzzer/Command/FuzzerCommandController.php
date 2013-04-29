@@ -2,7 +2,7 @@
 namespace Sandstorm\Fuzzer\Command;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "Sandstorm.Fuzzer".      *
+ * This script belongs to the TYPO3 Flow package "Sandstorm.Fuzzer".      *
  *                                                                        *
  *                                                                        */
 

@@ -1,8 +1,8 @@
 {
     "name": "sandstorm/fuzzer",
     "type": "typo3-flow-package",
-    "description": "",
-    "version": "",
+    "description": "Improve your Functional and Unit Tests by Fuzzing: A technique to find missing edge cases in tests.",
+	"license": "GPLv3",
     "require": {
         "typo3/flow": "*",
 		"phpunit/php-code-coverage": "1.2.*"

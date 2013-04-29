@@ -2,11 +2,9 @@
 namespace Sandstorm\Fuzzer\Fuzzer;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "Sandstorm.Fuzzer".      *
+ * This script belongs to the TYPO3 Flow package "Sandstorm.Fuzzer".      *
  *                                                                        *
  *                                                                        */
-
-use TYPO3\Flow\Annotations as Flow;
 
 /**
  * asdf

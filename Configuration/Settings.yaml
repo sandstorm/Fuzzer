@@ -2,3 +2,9 @@ Sandstorm:
   Fuzzer:
     fuzzers:
       0: Sandstorm\Fuzzer\Fuzzer\SingleLineFuzzer
+
+TYPO3:
+  Flow:
+    object:
+      excludeClasses:
+       'Sandstorm.Fuzzer' : ['Sandstorm\\Fuzzer\\Command\\PhpunitCodeCoverage']
