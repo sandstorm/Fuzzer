@@ -4,7 +4,8 @@
     "description": "",
     "version": "",
     "require": {
-        "typo3/flow": "*"
+        "typo3/flow": "*",
+		"phpunit/php-code-coverage": "1.2.*"
     },
     "autoload": {
         "psr-0": {
