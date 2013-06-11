@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * Undetected Mutation class
  */
-class Mutation {
+class UndetectedMutation {
 	protected $packageKey;
 
 	protected $relativePathAndFileName;

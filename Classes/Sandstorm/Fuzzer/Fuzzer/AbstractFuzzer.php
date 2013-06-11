@@ -7,29 +7,32 @@ namespace Sandstorm\Fuzzer\Fuzzer;
  *                                                                        */
 
 /**
- * asdf
+ * Base class for all fuzzers
  */
 abstract class AbstractFuzzer {
 
 	/**
-	 * @var \TYPO3\Flow\Package\PackageInterface
+	 * Human readable name of this fuzzer; to be used in output
+	 * @var string
 	 */
-	protected $package;
-
-	protected $testPath;
-
 	protected $name = '';
 
-	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $testPath) {
-		$this->package = $package;
-		$this->testPath = $testPath;
-	}
-
+	/**
+	 * @return string the human readable name of this fuzzer, to be used in output
+	 */
 	public function getName() {
 		return $this->name;
 	}
 
-	abstract public function initializeMutationsForClassFile($absoluteClassPathAndFilename);
+	/**
+	 * @param string $absoluteClassPathAndFilename
+	 * @param \SimpleXMLElement $codeCoverageData
+	 */
+	abstract public function initializeMutationsForClassFile($absoluteClassPathAndFilename, \SimpleXMLElement $codeCoverageData);
 
+	/**
+	 * @return string or FALSE
+	 */
+	abstract public function nextMutation();
 }
 ?>
