@@ -1,12 +1,35 @@
-Fuzzer -- Validating Unit Test Coverage
-=======================================
+Fuzzer -- Validating Test Coverage
+==================================
 
--- Testing your Unit Tests --
+-- Testing your Test Coverage --
 
 (c) Sebastian Kurfürst, Sandstorm Media UG (haftungsbeschränkt)
 
-Code Coverage Helpers
----------------------
+NEW in 2.0
+----------
+
+**Unit and Functional Testing**
+
+In version 1.*, Fuzzer only worked with Unit Tests. In the new version, it works
+with Unit and Functional tests, expanding its use-cases greatly.
+
+**PHPUnit through Composer**
+
+Now also supports a PHPUnit installation through composer, with fallback to the
+PEAR-installed version
+
+**increased robustness**
+
+It is now checked whether the needed command-line tools are available.
+
+**Code Coverage Helpers for Functional Tests**
+
+Collect and analyze code coverage also for your Functional Tests. See below
+for usage instructions.
+
+
+NEW in 2.0: Code Coverage Helpers
+---------------------------------
 
 Besides fuzzing, this package implements several helpers to work with functional tests:
 
@@ -29,7 +52,7 @@ Besides fuzzing, this package implements several helpers to work with functional
 Fuzzing
 -------
 
-Do you use automated unit tests to check your software?
+Do you use automated unit/functional tests to check your software?
 Are you monitoring the Code Coverage of your Unit Tests?
 Yeah -- then this software is for you! It helps to find missing edge cases in tests.
 
@@ -91,11 +114,11 @@ Here Comes The Fuzzer
 ---------------------
 
 The fuzzer automatically **modifies your source code**, checks that the resulting
-file has a valid syntax, and then runs the unit tests. In a perfect world, the
-unit tests would fail after every modification, as we modified the source code,
+file has a valid syntax, and then runs the unit/functional tests. In a perfect world,
+the tests would fail after every modification, as we modified the source code,
 and deliberately broke some functionality.
 
-The fuzzer detects cases where **the source has been modified, but the unit tests
+The fuzzer detects cases where **the source has been modified, but the tests
 still run through successfully**, giving indication which other test cases you
 need to write.
 
@@ -105,19 +128,14 @@ Installation
 **The system has been tested on Mac OS, and should also run on Linux. It will
 probably not run on Windows.**
 
-```
-cd <YourFlow3Root>/Packages/Application
-git clone --recursive git://github.com/sandstorm/Sandstorm.Fuzzer.git
-cd ../../
-./flow3 package:activate Sandstorm.Fuzzer
-```
+Simply run `composer require --dev sandstorm/fuzzer:2.*`
 
 You additionally need the following command-line tools installed:
 
 - git
-- php (should not be problematic, as you have a working FLOW3 installation)
+- php (should not be problematic, as you have a working TYPO3 Flow installation)
 - xdebug (as we must be able to run phpunit with code coverage reports)
-- phpunit
+- phpunit (can also be installed using Composer)
 - timeout (on Mac OS, you can install it using MacPorts with "port install timeout"; installed by default in many linux distributions)
 
 Usage
